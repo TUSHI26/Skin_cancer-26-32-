@@ -1,0 +1,108 @@
+
+<head>
+<style>
+  #form1{
+    background: rgb(59, 175, 213);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 700px;
+    height: 600px;
+  }
+  h3 { 
+    display: inline; 
+    }
+  #pred{
+
+   text-align: justify;
+   text-decoration:underline;
+    }
+ 
+  body {background-color: rgb(205, 226, 205);}
+</style>
+<script src = "https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js">
+</script>
+<script src = "https://cdnjs.cloudflare.com/ajax/libs/html2canvas/0.4.1/html2canvas.js">
+</script>
+</head>
+<body onload = "autoClick();">
+<div id="form1">
+  <div id="pred" >
+<h4>Prediction: {{prediction}} </h4></div>
+<br>
+{% if prediction<0.3 %}
+<h3>comment: NOT CANCEROUS </h3>
+{% elif prediction>0.3 and prediction<0.5 %}
+<h3>comment: early stage of cancer</h3> 
+{% elif prediction>0.5 %}
+<h3>comment: CANCEROUS </h3>
+{% endif %}
+<br>
+  <img id="pic"src="static/{{imag}}"  width="350" height="600"alt="image not found">
+  
+</div>
+<br>
+<button onclick="zoomIn()">Zoom-In</button>
+<button onclick="zoomOut()">Zoom-Out</button>
+<button onclick="zoomrn()">resize before download</button>
+<a id="download">Download</a>
+<script>
+  function autoClick(){
+    $("#download").click();
+  }
+
+  $(document).ready(function(){
+    var element = $("#form1");
+
+    $("#download").on('click', function(){
+
+      html2canvas(element, {
+        onrendered: function(canvas) {
+          var imageData = canvas.toDataURL("image/jpg");
+          var newData = imageData.replace(/^data:image\/jpg/, "data:application/octet-stream");
+          $("#download").attr("download", "image.jpg").attr("href", newData);
+        }
+      });
+
+    });
+  });
+  //Creating dynamic link that automatically click
+  function downloadURI(uri, name) {
+    var link = document.createElement("a");
+
+    link.download = name;
+    link.href = uri;
+    document.body.appendChild(link);
+    link.click();   
+    //after creating link you should delete dynamic link
+    //clearDynamicLink(link); 
+}
+function PrintDiv(form)
+{
+    html2canvas(form).then(canvas => {
+        var myImage = canvas.toDataURL();
+        downloadURI(myImage, "MaSimulation.png");
+    });
+}
+
+  function zoomrn() {
+    var pic = document.getElementById("form1");
+    var width = pic.clientWidth;
+    pic.style.width = width + 100 + "px";
+    }
+    function zoomIn() {
+      var pic = document.getElementById("pic");
+      var width = pic.clientWidth;
+      pic.style.width = width + 100 + "px";
+      }
+    function zoomOut() {
+      var pic = document.getElementById("pic");
+      var width = pic.clientWidth;
+      pic.style.width = width - 100 + "px";
+      }
+  const first = localStorage.getItem('image');
+  
+        document.getElementById("image").textContent = first;
+    </script>
+  </body>
+   

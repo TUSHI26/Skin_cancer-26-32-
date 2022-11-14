@@ -1,0 +1,93 @@
+{% extends "base.html" %} {% block title %}Sign Up{% endblock %} {% block
+    content %}
+    <head>
+      <link rel="stylesheet" href=
+      "https://cdn.jsdelivr.net/npm/bootstrap-icons@1.3.0/font/bootstrap-icons.css" />
+          <link rel="stylesheet" href=
+      "https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css"
+              integrity=
+      "sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"
+              crossorigin="anonymous">
+      <style>
+        form i {
+          margin-left: 663px;
+          padding-bottom: 0px;
+          cursor: pointer;
+      }
+        
+        body {background-color: powderblue;}
+        h1   {color: blue;}
+      </style>
+    </head>
+    <form method="POST">
+      <h3 align="center">Sign Up</h3>
+      <div class="form-group">
+        <label for="email">Email Address</label>
+        <input
+          type="email"
+          class="form-control"
+          id="email"
+          name="email"
+          placeholder="Enter email"
+        />
+      </div>
+      <div class="form-group">
+        <label for="firstName">First Name</label>
+        <input
+          type="text"
+          class="form-control"
+          id="firstName"
+          name="firstName"
+          placeholder="Enter first name"
+        />
+      </div>
+      <div class="form-group">
+     
+    <label for="password1">Password </label>
+   
+    <input
+      type="password"
+      class="form-control"
+      id="password1"
+      name="password1"
+      placeholder="Enter password"
+    /> <i class="bi bi-eye-slash" 
+    id="togglePassword"></i>
+     
+    </div>
+    <div class="form-group">
+        <label for="password2">Password (Confirm)</label>
+        <input
+          type="password"
+          class="form-control"
+          id="password2"
+          name="password2"
+          placeholder="Confirm password"
+        />
+
+      </div>
+      <br />
+      <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+    <script>
+      const togglePassword = document
+          .querySelector('#togglePassword');
+
+      const password = document.querySelector('#password1');
+
+      togglePassword.addEventListener('click', () => {
+
+          // Toggle the type attribute using
+          // getAttribure() method
+          const type = password
+              .getAttribute('type') === 'password' ?
+              'text' : 'password';
+                
+          password.setAttribute('type', type);
+
+          // Toggle the eye and bi-eye icon
+          this.classList.toggle('bi-eye');
+      });
+  </script>
+    {% endblock %}
